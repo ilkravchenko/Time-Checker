@@ -91,6 +91,11 @@ def reading(request):
 
 # view for user statistics
 def statistics(request):
+    try:
+        save_object(database=ReadingSession, user=request.user, read_time=None)
+    except AttributeError:
+        pass
+
     all_user_statistics = ReadingSession.objects.filter(user=request.user.id)
     today_user_statistics = ReadingSession.objects.filter(user=request.user.id,
                                                           started_at__gte=now().replace(hour=0, minute=0, second=0),
