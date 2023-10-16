@@ -24,5 +24,7 @@ urlpatterns = router.urls
 
 urlpatterns += [
     path('admin/', admin.site.urls),
-    path('', include('core.urls'))
+    path('', include('core.urls')),
+    path('reading/', include('reading.urls')),
+    path('users/', include('users.urls')),
 ]

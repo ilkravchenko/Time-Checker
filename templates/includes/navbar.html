@@ -1,0 +1,31 @@
+<div class="container">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="{% url 'reading' %}">Time Checker</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'reading' %}">Home <span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+        </div>
+
+        <div class="widget-header">
+            {% if user.is_authenticated %}
+                <div class="widget-header">
+                    <small class="title text-muted">Welcome {{ user.username }}!</small>
+                    <a href="{% url 'statistics' %}" class="btn btn-primary" role="button" aria-pressed="true">Statistics</a>
+                    <a href="{% url 'logout' %}" class="btn btn-primary" role="button" aria-pressed="true">Logout</a>
+                </div>
+            {% else %}
+                <div>
+                    <a href="{% url 'login' %}" class="btn btn-primary" role="button" aria-pressed="true">Sign in</a>
+                    <a href="{% url 'register' %}" class="btn btn-primary" role="button" aria-pressed="true">Register</a>
+                </div>
+            {% endif %}
+        </div>
+    </nav>
+</div>

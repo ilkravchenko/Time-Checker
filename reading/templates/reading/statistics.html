@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container text-center">
+    <span style="display:inline-block;border:1px solid #FFFFFF;width:100px;height:20px"></span>
+    <div class="row">
+        <div class="col" style="background-color: #DED4D4; margin: 1rem; border-radius: 10px; padding: 5px">
+            <i class="fa fa-line-chart" style="font-size:50px; color:#4ADEDE"></i>
+            <p style="padding-top: 5px; padding-bottom: 0">Today Books</p>
+            <p style="padding-top: 0; font-weight: bold">{{ today_books }} Books</p>
+        </div>
+        <div class="col" style="background-color: #DED4D4; margin: 1rem; border-radius: 10px; padding: 5px">
+            <i class="fa fa-area-chart" style="font-size:50px; color:#4ADEDE"></i>
+            <p style="padding-top: 5px; padding-bottom: 0">Total Books</p>
+            <p style="padding-top: 0; font-weight: bold">{{ total_books }} Books</p>
+        </div>
+        <div class="col" style="background-color: #DED4D4; margin: 1rem; border-radius: 10px; padding: 5px">
+            <i class="fa fa-bar-chart" style="font-size:50px; color:#4ADEDE"></i>
+            <p style="padding-top: 5px; padding-bottom: 0">Today Minutes</p>
+            <p style="padding-top: 0; font-weight: bold">{{ today_minutes }} Minutes</p>
+        </div>
+        <div class="col" style="background-color: #DED4D4; margin: 1rem; border-radius: 10px; padding: 5px">
+            <i class="fa fa-pie-chart" style="font-size:50px; color:#4ADEDE"></i>
+            <p style="padding-top: 5px; padding-bottom: 0">Total Minutes</p>
+            <p style="padding-top: 0; font-weight: bold">{{ total_minutes }} Minutes</p>
+        </div>
+    </div>
+
+    <span style="display:inline-block;border:1px solid #FFFFFF;width:100px;height:20px;"></span>
+    <div class="row">
+        <div class="col row" style="background-color: #DED4D4; margin: 1rem; padding: 10px; border-radius: 10px; font-weight: bold">
+            <div class="col" style="padding: 10px">
+                Today Minutes by Books
+            </div>
+
+            <div class="col"></div>
+            <div style="padding: 10px">
+                <img src="data:image/png;base64,{{ list_today_book_stat|safe }}">
+            </div>
+        </div>
+        <div class="col row" style="background-color: #DED4D4; margin: 1rem; padding: 10px; border-radius: 10px; font-weight: bold">
+            <div class="col" style="padding: 10px">
+                Total Minutes by Books
+            </div>
+
+            <div class="col"></div>
+            <div style="padding: 10px">
+                <img src="data:image/png;base64,{{ list_all_book_stat|safe }}">
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,8 +1,9 @@
 from django.http import JsonResponse
 from .models import Book
+from reading.models import ReadingSession
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import BookSerializer, BookDetailSerializer
+from .serializers import BookSerializer, BookDetailSerializer, ReadingSessionSerializer
 from rest_framework.decorators import api_view
 
 
@@ -15,10 +16,27 @@ def book_list(request, format=None):
     if request.method == 'GET':
         books = Book.objects.all()
         serializer = BookSerializer(books, many=True)
-        return JsonResponse({"Books": serializer.data}, safe=True)
+        return JsonResponse(data={"Books": serializer.data}, safe=True)
 
     if request.method == 'POST':
         serializer = BookDetailSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+@api_view(['GET', 'POST'])
+def reading_list(request, format=None):
+    """
+    get all readers, serialize them and return JSON
+    """
+    if request.method == 'GET':
+        readers = ReadingSession.objects.all()
+        serializer = ReadingSessionSerializer(readers, many=True)
+        return JsonResponse({"Readers": serializer.data}, safe=True)
+
+    if request.method == 'POST':
+        serializer = ReadingSessionSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -30,19 +48,43 @@ def book_detail(request, id, format=None):
     get book by id, serialize it and return JSON
     """
     try:
-        drink = Book.objects.get(pk=id)
+        book = Book.objects.get(pk=id)
     except Book.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
     if request.method == "GET":
-        serializer = BookDetailSerializer(drink)
+        serializer = BookDetailSerializer(book)
         return Response(serializer.data)
     elif request.method == "PUT":
-        serializer = BookDetailSerializer(drink, data=request.data)
+        serializer = BookDetailSerializer(book, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     elif request.method == "DELETE":
-        drink.delete()
+        book.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+
+@api_view(['GET', 'PUT', 'DELETE'])
+def reading_details(request, id, format=None):
+    """
+    get reader by id of data, serialize it and return JSON
+    """
+    try:
+        reader_id = ReadingSession.objects.get(pk=id)
+    except Book.DoesNotExist:
+        return Response(status=status.HTTP_404_NOT_FOUND)
+
+    if request.method == "GET":
+        serializer = ReadingSessionSerializer(reader_id)
+        return Response(serializer.data)
+    elif request.method == "PUT":
+        serializer = ReadingSessionSerializer(reader_id, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    elif request.method == "DELETE":
+        reader_id.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
