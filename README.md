@@ -152,7 +152,13 @@ To run tests, run the following command
   pytest
 ```
 
-Using this command you can run 7 project's test and can see that these all tests were passed. All created tests are listed below:
+Tests directory:
+
+```bash
+  core\tests.py
+```
+
+Using this command you can run 10 project's test and can see that these all tests were passed. All created tests are listed below:
 * test_book_list_view_GET
 * test_book_list_view_POST
 * test_book_serializer
