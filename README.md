@@ -4,6 +4,38 @@
 This project will track the time spent by a user reading a book. The user can start a reading session, finish it, and the system will store the duration of each session and the total reading time for each book.
 
 
+## Project Structure
+```
+Time Checker/
+    ┣ core/ - App for API feature 
+    ┣ reading/ - App for Time Cheking
+    ┣ templates/ - templates folder
+    ┣ Time_Checker/ - Main project folder
+    ┣ users/ - App for user registration and Login feature
+    ┣ .gitignore
+    ┣ db.sqlite3
+    ┣ manage.py
+    ┣ pytest.ini
+    ┗ requirements.txt
+```
+
+Available Urls
+
+```bash
+    admin/ - admin page
+    books/ - List all books
+    books/<int:id>/ - list one book by id
+    readers/ List all reading history
+    readers/?user&book List all reading history for user and book
+    readers/?user List all reading history for user
+    readers/?book List all reading history for book
+    readers/<int:id>/ list one record from reading history by id
+    reading/ - main page for Time Checking
+    reading/ statistics/ - Statistics for Users
+    users/register/ - Registration
+    users/login/ - Login
+    users/logout/ - Logout
+```
 ## Run Locally
 
 Clone the project
@@ -30,21 +62,6 @@ Start the server
   python manage.py runserver
 ```
 
-Available Urls
-
-```bash
-    admin/ - admin page
-    books/ - List all books
-    books/<int:id>/ - list one book by id
-    readers/ List all reading history
-    readers/<int:id>/ list one record from reading history by id
-    reading/ - main page for Time Checking
-    reading/ statistics/ - Statistics for Users
-    users/register/ - Registration
-    users/login/ - Login
-    users/logout/ - Logout
-```
-
 
 ## Screenshots and Usage
 This is a main page of Application where you can start and end reading your book, register and login, alse from here you can see statistics by clicking on button "Statistics". Also for best experience you can see the list of all books for reading.
@@ -69,8 +86,8 @@ This is a statistics page where users can see their statistics of reading, such 
 #### GET, PUT and DELETE book
 
 ```http
-  GET /books/${id}
-  PUT /books/${id}
+  GET /books/{id}
+  PUT /books/{id}
   DELETE /books/{id}
 ```
 
@@ -83,15 +100,29 @@ This is a statistics page where users can see their statistics of reading, such 
 #### GET and POST all reading records
 
 ```http
-  GET /readers
+  GET /readers/
+  GET /readers/?user=1&book=1
+  GET /readers/?user=1
+  GET /readers/?book=1
   POST /readers
 ```
+
+| Parameter | Type     | Description                       |
+| :-------- | :------- | :-------------------------------- |
+| `user`      | `int` | **Not Required**. Id of user to fetch |
+| `book`      | `int` | **Not Required**. Id of book to fetch |
+
 ![image](https://github.com/ilkravchenko/Time-Checker/assets/117378994/8e2d26cd-6c73-4e5a-8c70-62348f4cd492)
+- - - -
+![image](https://github.com/ilkravchenko/Time-Checker/assets/117378994/48837dca-3122-40ad-9270-19636b080eb1)
+- - - -
+![image](https://github.com/ilkravchenko/Time-Checker/assets/117378994/ed1d3a74-6a22-4889-8d5b-9f8df99e1364)
+
 #### GET, PUT and DELETE reading record
 
 ```http
-  GET /readers/${id}
-  PUT /readers/${id}
+  GET /readers/{id}
+  PUT /readers/{id}
   DELETE /readers/{id}
 ```
 
@@ -120,11 +151,14 @@ Using this command you can run 7 project's test and can see that these all tests
 * test_book_detail_view_GET
 * test_book_detail_view_PUT
 * test_book_detail_view_DELETE
+* test_reading_sessions_GET
+* test_reading_session_POST
+* test_reading_sessions_GET_with_params
 
 ```bash
-collected 7 items
+collected 10 items
 core\tests.py .....                                       [100%]
 
-====================== 7 passed in 2.10s =======================
+=======================  10 passed in 2.21s ====================
 
 ```
