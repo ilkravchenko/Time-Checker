@@ -112,10 +112,19 @@ This is a statistics page where users can see their statistics of reading, such 
 | `user`      | `int` | **Not Required**. Id of user to fetch |
 | `book`      | `int` | **Not Required**. Id of book to fetch |
 
+```http
+  GET /readers/
+```
 ![image](https://github.com/ilkravchenko/Time-Checker/assets/117378994/8e2d26cd-6c73-4e5a-8c70-62348f4cd492)
 - - - -
+```http
+  GET /readers/?book=1
+```
 ![image](https://github.com/ilkravchenko/Time-Checker/assets/117378994/48837dca-3122-40ad-9270-19636b080eb1)
 - - - -
+```http
+  GET /readers/?user=1&book=1
+```
 ![image](https://github.com/ilkravchenko/Time-Checker/assets/117378994/ed1d3a74-6a22-4889-8d5b-9f8df99e1364)
 
 #### GET, PUT and DELETE reading record
